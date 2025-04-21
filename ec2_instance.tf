@@ -23,8 +23,12 @@ resource "aws_instance" "mern_app_server" {
               EOF
 }
 
+resource "random_id" "sg_suffix" {
+  byte_length = 4
+  }
+
 resource "aws_security_group" "mern_sg" {
-  name        = "elevateDaily-security-group"
+  name        = "elevateDaily-security-group-${random_id.sg_suffix.hex}"
   description = "Allow SSH, HTTP, HTTPS, and custom ports for MERN app"
 
   ingress {
